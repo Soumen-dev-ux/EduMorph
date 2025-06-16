@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Recommendations - EduMorph</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="dashboard-layout">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <div class="sidebar-logo">
+                    <i class="fas fa-graduation-cap"></i>
+                    <span>EduMorph</span>
+                </div>
+            </div>
+            <nav class="sidebar-nav">
+                <a href="dashboard.html" class="nav-item">
+                    <i class="fas fa-home"></i>
+                    <span>Dashboard</span>
+                </a>
+                <a href="courses.html" class="nav-item">
+                    <i class="fas fa-book"></i>
+                    <span>Courses</span>
+                </a>
+                <a href="ai-assistant.html" class="nav-item">
+                    <i class="fas fa-robot"></i>
+                    <span>AI Assistant</span>
+                </a>
+                <a href="ai-recommendations.html" class="nav-item active">
+                    <i class="fas fa-lightbulb"></i>
+                    <span>Recommendations</span>
+                </a>
+                <a href="ai-generator.html" class="nav-item">
+                    <i class="fas fa-magic"></i>
+                    <span>Content Generator</span>
+                </a>
+                <a href="feedback.html" class="nav-item">
+                    <i class="fas fa-comment"></i>
+                    <span>Feedback</span>
+                </a>
+                <a href="accessibility.html" class="nav-item">
+                    <i class="fas fa-universal-access"></i>
+                    <span>Accessibility</span>
+                </a>
+            </nav>
+            <div class="sidebar-footer">
+                <button class="btn btn-outline btn-small" onclick="logout()">
+                    <i class="fas fa-sign-out-alt"></i>
+                    Logout
+                </button>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <header class="page-header">
+                <h1>AI-Powered Recommendations</h1>
+                <p>Personalized suggestions based on your learning patterns and goals</p>
+            </header>
+
+            <div class="recommendations-content">
+                <!-- Recommendation Categories -->
+                <div class="recommendation-tabs">
+                    <button class="tab-btn active" onclick="showTab('courses')">Course Recommendations</button>
+                    <button class="tab-btn" onclick="showTab('skills')">Skill Development</button>
+                    <button class="tab-btn" onclick="showTab('resources')">Learning Resources</button>
+                    <button class="tab-btn" onclick="showTab('paths')">Learning Paths</button>
+                </div>
+
+                <!-- Course Recommendations -->
+                <div id="courses-tab" class="tab-content active">
+                    <div class="recommendation-section">
+                        <h2>Recommended Courses</h2>
+                        <p>Based on your current progress and interests</p>
+                        <div class="recommendation-grid" id="course-recommendations">
+                            <!-- Course recommendations will be loaded here -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Skill Development -->
+                <div id="skills-tab" class="tab-content">
+                    <div class="recommendation-section">
+                        <h2>Skills to Develop</h2>
+                        <p>Enhance your expertise with these targeted skills</p>
+                        <div class="skills-grid" id="skill-recommendations">
+                            <!-- Skill recommendations will be loaded here -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Learning Resources -->
+                <div id="resources-tab" class="tab-content">
+                    <div class="recommendation-section">
+                        <h2>Learning Resources</h2>
+                        <p>Curated materials to supplement your learning</p>
+                        <div class="resources-grid" id="resource-recommendations">
+                            <!-- Resource recommendations will be loaded here -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Learning Paths -->
+                <div id="paths-tab" class="tab-content">
+                    <div class="recommendation-section">
+                        <h2>Learning Paths</h2>
+                        <p>Structured journeys to achieve your goals</p>
+                        <div class="paths-grid" id="path-recommendations">
+                            <!-- Path recommendations will be loaded here -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="ai-recommendations.js"></script>
+</body>
+</html>

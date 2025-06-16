@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Feedback - EduMorph</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="dashboard-layout">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <div class="sidebar-logo">
+                    <i class="fas fa-graduation-cap"></i>
+                    <span>EduMorph</span>
+                </div>
+            </div>
+            <nav class="sidebar-nav">
+                <a href="dashboard.html" class="nav-item">
+                    <i class="fas fa-home"></i>
+                    <span>Dashboard</span>
+                </a>
+                <a href="courses.html" class="nav-item">
+                    <i class="fas fa-book"></i>
+                    <span>Courses</span>
+                </a>
+                <a href="ai-assistant.html" class="nav-item">
+                    <i class="fas fa-robot"></i>
+                    <span>AI Assistant</span>
+                </a>
+                <a href="ai-recommendations.html" class="nav-item">
+                    <i class="fas fa-lightbulb"></i>
+                    <span>Recommendations</span>
+                </a>
+                <a href="ai-generator.html" class="nav-item">
+                    <i class="fas fa-magic"></i>
+                    <span>Content Generator</span>
+                </a>
+                <a href="feedback.html" class="nav-item active">
+                    <i class="fas fa-comment"></i>
+                    <span>Feedback</span>
+                </a>
+                <a href="accessibility.html" class="nav-item">
+                    <i class="fas fa-universal-access"></i>
+                    <span>Accessibility</span>
+                </a>
+            </nav>
+            <div class="sidebar-footer">
+                <button class="btn btn-outline btn-small" onclick="logout()">
+                    <i class="fas fa-sign-out-alt"></i>
+                    Logout
+                </button>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <header class="page-header">
+                <h1>Feedback & Support</h1>
+                <p>Help us improve your learning experience</p>
+            </header>
+
+            <div class="feedback-content">
+                <!-- Feedback Tabs -->
+                <div class="feedback-tabs">
+                    <button class="tab-btn active" onclick="showFeedbackTab('general')">General Feedback</button>
+                    <button class="tab-btn" onclick="showFeedbackTab('course')">Course Feedback</button>
+                    <button class="tab-btn" onclick="showFeedbackTab('bug')">Report Bug</button>
+                    <button class="tab-btn" onclick="showFeedbackTab('feature')">Feature Request</button>
+                </div>
+
+                <!-- General Feedback -->
+                <div id="general-tab" class="feedback-tab-content active">
+                    <div class="feedback-form-container">
+                        <h2>General Feedback</h2>
+                        <p>Share your overall experience with EduMorph</p>
+                        
+                        <form class="feedback-form" id="general-feedback-form">
+                            <div class="form-group">
+                                <label for="rating">Overall Rating</label>
+                                <div class="rating-stars" id="general-rating">
+                                    <i class="fas fa-star" data-rating="1"></i>
+                                    <i class="fas fa-star" data-rating="2"></i>
+                                    <i class="fas fa-star" data-rating="3"></i>
+                                    <i class="fas fa-star" data-rating="4"></i>
+                                    <i class="fas fa-star" data-rating="5"></i>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="general-feedback">Your Feedback</label>
+                                <textarea id="general-feedback" name="feedback" placeholder="Tell us about your experience..." required></textarea>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="improvement">What could we improve?</label>
+                                <textarea id="improvement" name="improvement" placeholder="Suggestions for improvement..."></textarea>
+                            </div>
+
+                            <button type="submit" class="btn btn-primary">Submit Feedback</button>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- Course Feedback -->
+                <div id="course-tab" class="feedback-tab-content">
+                    <div class="feedback-form-container">
+                        <h2>Course Feedback</h2>
+                        <p>Rate and review specific courses</p>
+                        
+                        <form class="feedback-form" id="course-feedback-form">
+                            <div class="form-group">
+                                <label for="course-select">Select Course</label>
+                                <select id="course-select" name="course" required>
+                                    <option value="">Choose a course...</option>
+                                    <option value="javascript-basics">JavaScript Basics</option>
+                                    <option value="python-fundamentals">Python Fundamentals</option>
+                                    <option value="web-design">Web Design Principles</option>
+                                    <option value="data-science">Data Science Introduction</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="course-rating">Course Rating</label>
+                                <div class="rating-stars" id="course-rating">
+                                    <i class="fas fa-star" data-rating="1"></i>
+                                    <i class="fas fa-star" data-rating="2"></i>
+                                    <i class="fas fa-star" data-rating="3"></i>
+                                    <i class="fas fa-star" data-rating="4"></i>
+                                    <i class="fas fa-star" data-rating="5"></i>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="course-feedback">Course Review</label>
+                                <textarea id="course-feedback" name="feedback" placeholder="What did you think of this course?" required></textarea>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="instructor-rating">Instructor Rating</label>
+                                <div class="rating-stars" id="instructor-rating">
+                                    <i class="fas fa-star" data-rating="1"></i>
+                                    <i class="fas fa-star" data-rating="2"></i>
+                                    <i class="fas fa-star" data-rating="3"></i>
+                                    <i class="fas fa-star" data-rating="4"></i>
+                                    <i class="fas fa-star" data-rating="5"></i>
+                                </div>
+                            </div>
+
+                            <button type="submit" class="btn btn-primary">Submit Review</button>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- Bug Report -->
+                <div id="bug-tab" class="feedback-tab-content">
+                    <div class="feedback-form-container">
+                        <h2>Report a Bug</h2>
+                        <p>Help us fix issues by reporting bugs</p>
+                        
+                        <form class="feedback-form" id="bug-report-form">
+                            <div class="form-group">
+                                <label for="bug-title">Bug Title</label>
+                                <input type="text" id="bug-title" name="title" placeholder="Brief description of the issue" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="bug-severity">Severity</label>
+                                <select id="bug-severity" name="severity" required>
+                                    <option value="">Select severity</option>
+                                    <option value="low">Low - Minor inconvenience</option>
+                                    <option value="medium">Medium - Affects functionality</option>
+                                    <option value="high">High - Prevents normal use</option>
+                                    <option value="critical">Critical - System unusable</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="bug-description">Description</label>
+                                <textarea id="bug-description" name="description" placeholder="Detailed description of the bug..." required></textarea>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="bug-steps">Steps to Reproduce</label>
+                                <textarea id="bug-steps" name="steps" placeholder="1. Go to...&#10;2. Click on...&#10;3. See error..."></textarea>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="bug-browser">Browser/Device</label>
+                                <input type="text" id="bug-browser" name="browser" placeholder="e.g., Chrome 91, Safari on iPhone">
+                            </div>
+
+                            <button type="submit" class="btn btn-primary">Report Bug</button>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- Feature Request -->
+                <div id="feature-tab" class="feedback-tab-content">
+                    <div class="feedback-form-container">
+                        <h2>Feature Request</h2>
+                        <p>Suggest new features or improvements</p>
+                        
+                        <form class="feedback-form" id="feature-request-form">
+                            <div class="form-group">
+                                <label for="feature-title">Feature Title</label>
+                                <input type="text" id="feature-title" name="title" placeholder="Name of the requested feature" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="feature-category">Category</label>
+                                <select id="feature-category" name="category" required>
+                                    <option value="">Select category</option>
+                                    <option value="ui">User Interface</option>
+                                    <option value="learning">Learning Tools</option>
+                                    <option value="ai">AI Features</option>
+                                    <option value="social">Social Features</option>
+                                    <option value="mobile">Mobile App</option>
+                                    <option value="other">Other</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="feature-description">Description</label>
+                                <textarea id="feature-description" name="description" placeholder="Detailed description of the feature..." required></textarea>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="feature-benefit">Why is this useful?</label>
+                                <textarea id="feature-benefit" name="benefit" placeholder="How would this feature benefit users?"></textarea>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="feature-priority">Priority</label>
+                                <select id="feature-priority" name="priority">
+                                    <option value="low">Low - Nice to have</option>
+                                    <option value="medium">Medium - Would be helpful</option>
+                                    <option value="high">High - Really needed</option>
+                                </select>
+                            </div>
+
+                            <button type="submit" class="btn btn-primary">Submit Request</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="feedback.js"></script>
+</body>
+</html>
