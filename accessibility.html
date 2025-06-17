@@ -6,8 +6,244 @@
     <title>Accessibility Settings - EduMorph</title>
     <link rel="stylesheet" href="styles.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        .accessibility-settings {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 2rem;
+        }
+        
+        .settings-panel {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+        
+        .setting-group {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 0.75rem;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+        
+        .setting-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1rem 0;
+            border-bottom: 1px solid #f3f4f6;
+        }
+        
+        .setting-item:last-child {
+            border-bottom: none;
+        }
+        
+        .setting-info h4 {
+            margin: 0 0 0.25rem 0;
+            color: #374151;
+        }
+        
+        .setting-info p {
+            margin: 0;
+            font-size: 0.875rem;
+            color: #6b7280;
+        }
+        
+        .switch {
+            position: relative;
+            width: 3rem;
+            height: 1.5rem;
+            background: #d1d5db;
+            border-radius: 0.75rem;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        
+        .switch.active {
+            background: #4f46e5;
+        }
+        
+        .switch-thumb {
+            position: absolute;
+            top: 0.125rem;
+            left: 0.125rem;
+            width: 1.25rem;
+            height: 1.25rem;
+            background: white;
+            border-radius: 50%;
+            transition: transform 0.2s;
+        }
+        
+        .switch.active .switch-thumb {
+            transform: translateX(1.5rem);
+        }
+        
+        .slider-container {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+        
+        .slider {
+            width: 100%;
+            height: 0.5rem;
+            background: #e5e7eb;
+            border-radius: 0.25rem;
+            outline: none;
+            cursor: pointer;
+        }
+        
+        .slider::-webkit-slider-thumb {
+            appearance: none;
+            width: 1.25rem;
+            height: 1.25rem;
+            background: #4f46e5;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+        
+        .slider::-moz-range-thumb {
+            width: 1.25rem;
+            height: 1.25rem;
+            background: #4f46e5;
+            border-radius: 50%;
+            cursor: pointer;
+            border: none;
+        }
+        
+        .demo-area {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+        
+        .demo-card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 0.75rem;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+        
+        .tts-demo {
+            background: #f8fafc;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .tts-controls {
+            display: flex;
+            gap: 0.5rem;
+            align-items: center;
+        }
+        
+        .sample-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+        
+        .content-box {
+            padding: 1rem;
+            border-radius: 0.5rem;
+            border: 1px solid;
+        }
+        
+        .content-box.blue {
+            background: #eff6ff;
+            border-color: #bfdbfe;
+        }
+        
+        .content-box.green {
+            background: #f0fdf4;
+            border-color: #bbf7d0;
+        }
+        
+        .content-box.yellow {
+            background: #fefce8;
+            border-color: #fde047;
+        }
+        
+        .keyboard-shortcuts {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+        
+        .shortcut-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.5rem 0;
+        }
+        
+        .kbd {
+            background: #f3f4f6;
+            border: 1px solid #d1d5db;
+            border-radius: 0.25rem;
+            padding: 0.25rem 0.5rem;
+            font-size: 0.75rem;
+            font-family: monospace;
+        }
+        
+        /* High contrast mode styles */
+        .high-contrast {
+            background: #000000 !important;
+            color: #ffffff !important;
+        }
+        
+        .high-contrast .setting-group,
+        .high-contrast .demo-card {
+            background: #1a1a1a !important;
+            border: 1px solid #404040 !important;
+        }
+        
+        .high-contrast .content-box {
+            background: #2a2a2a !important;
+            border-color: #606060 !important;
+        }
+        
+        .high-contrast .tts-demo {
+            background: #2a2a2a !important;
+        }
+        
+        /* Color blind filters */
+        .protanopia {
+            filter: sepia(100%) saturate(0%) hue-rotate(0deg);
+        }
+        
+        .deuteranopia {
+            filter: sepia(100%) saturate(50%) hue-rotate(90deg);
+        }
+        
+        .tritanopia {
+            filter: sepia(100%) saturate(200%) hue-rotate(180deg);
+        }
+        
+        /* Reduced motion */
+        .reduced-motion * {
+            animation-duration: 0.01ms !important;
+            animation-iteration-count: 1 !important;
+            transition-duration: 0.01ms !important;
+        }
+        
+        @media (max-width: 768px) {
+            .accessibility-settings {
+                grid-template-columns: 1fr;
+            }
+            
+            .sample-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .keyboard-shortcuts {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
 </head>
-<body>
+<body id="pageBody">
     <div class="dashboard-layout">
         <!-- Sidebar -->
         <aside class="sidebar">
@@ -46,6 +282,10 @@
                     <i class="fas fa-universal-access"></i>
                     <span>Accessibility</span>
                 </a>
+                <a href="profile.html" class="nav-item">
+                    <i class="fas fa-user"></i>
+                    <span>Profile</span>
+                </a>
             </nav>
             <div class="sidebar-footer">
                 <button class="btn btn-outline btn-small" onclick="logout()">
@@ -58,234 +298,545 @@
         <!-- Main Content -->
         <main class="main-content">
             <header class="page-header">
-                <h1>Accessibility Settings</h1>
-                <p>Customize your learning experience for better accessibility</p>
+                <h1>Accessibility Center ♿</h1>
+                <p>Customize your learning experience with our accessibility tools</p>
             </header>
 
-            <div class="accessibility-content">
-                <!-- Visual Settings -->
-                <section class="settings-section">
-                    <h2>Visual Settings</h2>
-                    <div class="settings-grid">
-                        <div class="setting-item">
-                            <div class="setting-info">
-                                <h3>Font Size</h3>
-                                <p>Adjust text size for better readability</p>
+            <div class="page-content">
+                <div class="accessibility-settings">
+                    <!-- Settings Panel -->
+                    <div class="settings-panel">
+                        <!-- Visual Settings -->
+                        <div class="setting-group">
+                            <div class="card-header">
+                                <h3><i class="fas fa-eye"></i> Visual Settings</h3>
+                                <p>Adjust visual elements for better readability</p>
                             </div>
-                            <div class="setting-control">
-                                <input type="range" id="font-size" min="12" max="24" value="16" onchange="updateFontSize(this.value)">
-                                <span id="font-size-value">16px</span>
+                            
+                            <div class="setting-item">
+                                <div class="setting-info">
+                                    <h4>High Contrast Mode</h4>
+                                    <p>Increase contrast for better visibility</p>
+                                </div>
+                                <div class="switch" id="highContrastSwitch" onclick="toggleHighContrast()">
+                                    <div class="switch-thumb"></div>
+                                </div>
                             </div>
-                        </div>
-
-                        <div class="setting-item">
-                            <div class="setting-info">
-                                <h3>High Contrast</h3>
-                                <p>Increase contrast for better visibility</p>
+                            
+                            <div class="setting-item">
+                                <div class="setting-info">
+                                    <h4>Font Size: <span id="fontSizeValue">16px</span></h4>
+                                    <p>Adjust text size for better readability</p>
+                                </div>
+                                <div class="slider-container">
+                                    <input type="range" class="slider" id="fontSizeSlider" min="12" max="24" value="16" oninput="updateFontSize(this.value)">
+                                </div>
                             </div>
-                            <div class="setting-control">
-                                <label class="toggle-switch">
-                                    <input type="checkbox" id="high-contrast" onchange="toggleHighContrast()">
-                                    <span class="slider"></span>
-                                </label>
+                            
+                            <div class="setting-item">
+                                <div class="setting-info">
+                                    <h4>Dyslexia-Friendly Font</h4>
+                                    <p>Use fonts designed for dyslexic readers</p>
+                                </div>
+                                <div class="switch" id="dyslexiaFontSwitch" onclick="toggleDyslexiaFont()">
+                                    <div class="switch-thumb"></div>
+                                </div>
                             </div>
-                        </div>
-
-                        <div class="setting-item">
-                            <div class="setting-info">
-                                <h3>Dark Mode</h3>
-                                <p>Switch to dark theme to reduce eye strain</p>
+                            
+                            <div class="setting-item">
+                                <div class="setting-info">
+                                    <h4>Color Blind Support</h4>
+                                    <p>Adjust colors for color vision deficiency</p>
+                                </div>
+                                <select id="colorBlindSelect" onchange="updateColorBlindMode(this.value)">
+                                    <option value="none">None</option>
+                                    <option value="protanopia">Protanopia</option>
+                                    <option value="deuteranopia">Deuteranopia</option>
+                                    <option value="tritanopia">Tritanopia</option>
+                                </select>
                             </div>
-                            <div class="setting-control">
-                                <label class="toggle-switch">
-                                    <input type="checkbox" id="dark-mode" onchange="toggleDarkMode()">
-                                    <span class="slider"></span>
-                                </label>
-                            </div>
-                        </div>
-
-                        <div class="setting-item">
-                            <div class="setting-info">
-                                <h3>Reduce Motion</h3>
-                                <p>Minimize animations and transitions</p>
-                            </div>
-                            <div class="setting-control">
-                                <label class="toggle-switch">
-                                    <input type="checkbox" id="reduce-motion" onchange="toggleReduceMotion()">
-                                    <span class="slider"></span>
-                                </label>
-                            </div>
-                        </div>
-
-                        <div class="setting-item">
-                            <div class="setting-info">
-                                <h3>Focus Indicators</h3>
-                                <p>Enhanced focus outlines for keyboard navigation</p>
-                            </div>
-                            <div class="setting-control">
-                                <label class="toggle-switch">
-                                    <input type="checkbox" id="focus-indicators" onchange="toggleFocusIndicators()">
-                                    <span class="slider"></span>
-                                </label>
-                            </div>
-                        </div>
-                    </div>
-                </section>
-
-                <!-- Audio Settings -->
-                <section class="settings-section">
-                    <h2>Audio Settings</h2>
-                    <div class="settings-grid">
-                        <div class="setting-item">
-                            <div class="setting-info">
-                                <h3>Screen Reader Support</h3>
-                                <p>Enable enhanced screen reader compatibility</p>
-                            </div>
-                            <div class="setting-control">
-                                <label class="toggle-switch">
-                                    <input type="checkbox" id="screen-reader" onchange="toggleScreenReader()">
-                                    <span class="slider"></span>
-                                </label>
+                            
+                            <div class="setting-item">
+                                <div class="setting-info">
+                                    <h4>Reduce Motion</h4>
+                                    <p>Minimize animations and transitions</p>
+                                </div>
+                                <div class="switch" id="reducedMotionSwitch" onclick="toggleReducedMotion()">
+                                    <div class="switch-thumb"></div>
+                                </div>
                             </div>
                         </div>
 
-                        <div class="setting-item">
-                            <div class="setting-info">
-                                <h3>Audio Descriptions</h3>
-                                <p>Enable audio descriptions for video content</p>
+                        <!-- Audio Settings -->
+                        <div class="setting-group">
+                            <div class="card-header">
+                                <h3><i class="fas fa-volume-up"></i> Audio Settings</h3>
+                                <p>Configure text-to-speech and audio features</p>
                             </div>
-                            <div class="setting-control">
-                                <label class="toggle-switch">
-                                    <input type="checkbox" id="audio-descriptions" onchange="toggleAudioDescriptions()">
-                                    <span class="slider"></span>
-                                </label>
+                            
+                            <div class="setting-item">
+                                <div class="setting-info">
+                                    <h4>Text-to-Speech</h4>
+                                    <p>Enable voice reading of content</p>
+                                </div>
+                                <div class="switch" id="ttsSwitch" onclick="toggleTextToSpeech()">
+                                    <div class="switch-thumb"></div>
+                                </div>
                             </div>
-                        </div>
-
-                        <div class="setting-item">
-                            <div class="setting-info">
-                                <h3>Sound Effects</h3>
-                                <p>Enable or disable interface sound effects</p>
+                            
+                            <div class="setting-item">
+                                <div class="setting-info">
+                                    <h4>Voice Speed: <span id="voiceSpeedValue">1.0x</span></h4>
+                                    <p>Adjust speech rate</p>
+                                </div>
+                                <div class="slider-container">
+                                    <input type="range" class="slider" id="voiceSpeedSlider" min="0.5" max="2" step="0.1" value="1" oninput="updateVoiceSpeed(this.value)">
+                                </div>
                             </div>
-                            <div class="setting-control">
-                                <label class="toggle-switch">
-                                    <input type="checkbox" id="sound-effects" onchange="toggleSoundEffects()" checked>
-                                    <span class="slider"></span>
-                                </label>
-                            </div>
-                        </div>
-                    </div>
-                </section>
-
-                <!-- Navigation Settings -->
-                <section class="settings-section">
-                    <h2>Navigation Settings</h2>
-                    <div class="settings-grid">
-                        <div class="setting-item">
-                            <div class="setting-info">
-                                <h3>Keyboard Navigation</h3>
-                                <p>Enhanced keyboard shortcuts and navigation</p>
-                            </div>
-                            <div class="setting-control">
-                                <label class="toggle-switch">
-                                    <input type="checkbox" id="keyboard-nav" onchange="toggleKeyboardNav()" checked>
-                                    <span class="slider"></span>
-                                </label>
-                            </div>
-                        </div>
-
-                        <div class="setting-item">
-                            <div class="setting-info">
-                                <h3>Skip Links</h3>
-                                <p>Show skip navigation links</p>
-                            </div>
-                            <div class="setting-control">
-                                <label class="toggle-switch">
-                                    <input type="checkbox" id="skip-links" onchange="toggleSkipLinks()" checked>
-                                    <span class="slider"></span>
-                                </label>
-                            </div>
-                        </div>
-
-                        <div class="setting-item">
-                            <div class="setting-info">
-                                <h3>Simplified Layout</h3>
-                                <p>Use a simplified, linear layout</p>
-                            </div>
-                            <div class="setting-control">
-                                <label class="toggle-switch">
-                                    <input type="checkbox" id="simplified-layout" onchange="toggleSimplifiedLayout()">
-                                    <span class="slider"></span>
-                                </label>
-                            </div>
-                        </div>
-                    </div>
-                </section>
-
-                <!-- Language Settings -->
-                <section class="settings-section">
-                    <h2>Language & Content</h2>
-                    <div class="settings-grid">
-                        <div class="setting-item">
-                            <div class="setting-info">
-                                <h3>Language</h3>
-                                <p>Select your preferred language</p>
-                            </div>
-                            <div class="setting-control">
-                                <select id="language" onchange="changeLanguage(this.value)">
+                            
+                            <div class="setting-item">
+                                <div class="setting-info">
+                                    <h4>Language</h4>
+                                    <p>Select voice language</p>
+                                </div>
+                                <select id="languageSelect" onchange="updateLanguage(this.value)">
                                     <option value="en">English</option>
                                     <option value="es">Español</option>
                                     <option value="fr">Français</option>
                                     <option value="de">Deutsch</option>
                                     <option value="zh">中文</option>
+                                    <option value="ja">日本語</option>
                                 </select>
                             </div>
                         </div>
 
-                        <div class="setting-item">
-                            <div class="setting-info">
-                                <h3>Reading Level</h3>
-                                <p>Adjust content complexity</p>
+                        <!-- Navigation Settings -->
+                        <div class="setting-group">
+                            <div class="card-header">
+                                <h3><i class="fas fa-keyboard"></i> Navigation</h3>
+                                <p>Keyboard and navigation preferences</p>
                             </div>
-                            <div class="setting-control">
-                                <select id="reading-level" onchange="changeReadingLevel(this.value)">
-                                    <option value="basic">Basic</option>
-                                    <option value="intermediate">Intermediate</option>
-                                    <option value="advanced">Advanced</option>
-                                </select>
+                            
+                            <div class="setting-item">
+                                <div class="setting-info">
+                                    <h4>Enhanced Keyboard Navigation</h4>
+                                    <p>Improved keyboard shortcuts and focus</p>
+                                </div>
+                                <div class="switch active" id="keyboardNavSwitch" onclick="toggleKeyboardNav()">
+                                    <div class="switch-thumb"></div>
+                                </div>
                             </div>
-                        </div>
-
-                        <div class="setting-item">
-                            <div class="setting-info">
-                                <h3>Content Warnings</h3>
-                                <p>Show warnings for potentially sensitive content</p>
-                            </div>
-                            <div class="setting-control">
-                                <label class="toggle-switch">
-                                    <input type="checkbox" id="content-warnings" onchange="toggleContentWarnings()" checked>
-                                    <span class="slider"></span>
-                                </label>
+                            
+                            <div class="setting-item">
+                                <div class="setting-info">
+                                    <h4>Screen Reader Optimization</h4>
+                                    <p>Enhanced compatibility with screen readers</p>
+                                </div>
+                                <div class="switch" id="screenReaderSwitch" onclick="toggleScreenReader()">
+                                    <div class="switch-thumb"></div>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </section>
 
-                <!-- Save Settings -->
-                <div class="settings-actions">
-                    <button class="btn btn-primary" onclick="saveAccessibilitySettings()">
-                        <i class="fas fa-save"></i>
-                        Save Settings
-                    </button>
-                    <button class="btn btn-outline" onclick="resetAccessibilitySettings()">
-                        <i class="fas fa-undo"></i>
-                        Reset to Default
-                    </button>
+                    <!-- Demo Area -->
+                    <div class="demo-area">
+                        <!-- Text-to-Speech Demo -->
+                        <div class="demo-card">
+                            <div class="card-header">
+                                <h3><i class="fas fa-volume-up"></i> Text-to-Speech Demo</h3>
+                                <p>Try out the text-to-speech functionality</p>
+                            </div>
+                            
+                            <div class="tts-demo" id="ttsDemo">
+                                <p id="demoText">Welcome to EduMorph's accessibility features. These tools are designed to make learning accessible for everyone. You can adjust font sizes, enable high contrast mode, use text-to-speech, and customize many other settings to create the perfect learning environment for your needs.</p>
+                            </div>
+                            
+                            <div class="tts-controls">
+                                <button class="btn btn-primary" id="playBtn" onclick="togglePlayback()" disabled>
+                                    <i class="fas fa-play" id="playIcon"></i>
+                                    <span id="playText">Play</span>
+                                </button>
+                                <button class="btn btn-outline" onclick="stopPlayback()" disabled id="stopBtn">
+                                    <i class="fas fa-stop"></i>
+                                </button>
+                                <button class="btn btn-outline" onclick="skipBackward()" disabled id="skipBackBtn">
+                                    <i class="fas fa-backward"></i>
+                                </button>
+                                <button class="btn btn-outline" onclick="skipForward()" disabled id="skipForwardBtn">
+                                    <i class="fas fa-forward"></i>
+                                </button>
+                            </div>
+                            
+                            <div id="ttsDisabled" style="margin-top: 1rem; color: #6b7280; font-size: 0.875rem;">
+                                Enable Text-to-Speech in the settings to use this feature
+                            </div>
+                        </div>
+
+                        <!-- Sample Content -->
+                        <div class="demo-card">
+                            <div class="card-header">
+                                <h3>Sample Learning Content</h3>
+                                <p>See how your accessibility settings affect content display</p>
+                            </div>
+                            
+                            <div id="sampleContent">
+                                <h3>The Water Cycle</h3>
+                                <p>The water cycle is a continuous process that moves water throughout Earth's atmosphere, land, and oceans. This natural cycle is powered by energy from the sun and includes several key stages.</p>
+                                
+                                <div class="sample-content">
+                                    <div class="content-box blue">
+                                        <h4>Evaporation</h4>
+                                        <p>Heat from the sun causes water in oceans, lakes, and rivers to change from liquid to vapor.</p>
+                                    </div>
+                                    
+                                    <div class="content-box green">
+                                        <h4>Condensation</h4>
+                                        <p>Water vapor rises and cools, forming tiny droplets that create clouds.</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="content-box yellow" style="margin-top: 1rem;">
+                                    <h4>💡 Quick Tip</h4>
+                                    <p>Remember the water cycle with this acronym: <strong>EPIC</strong> - Evaporation, Precipitation, Infiltration, Collection</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Keyboard Shortcuts -->
+                        <div class="demo-card">
+                            <div class="card-header">
+                                <h3><i class="fas fa-keyboard"></i> Keyboard Shortcuts</h3>
+                                <p>Navigate efficiently using keyboard shortcuts</p>
+                            </div>
+                            
+                            <div class="keyboard-shortcuts">
+                                <div>
+                                    <div class="shortcut-item">
+                                        <span>Toggle Text-to-Speech</span>
+                                        <span class="kbd">Ctrl + T</span>
+                                    </div>
+                                    <div class="shortcut-item">
+                                        <span>Increase Font Size</span>
+                                        <span class="kbd">Ctrl + +</span>
+                                    </div>
+                                    <div class="shortcut-item">
+                                        <span>Decrease Font Size</span>
+                                        <span class="kbd">Ctrl + -</span>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="shortcut-item">
+                                        <span>High Contrast Toggle</span>
+                                        <span class="kbd">Ctrl + H</span>
+                                    </div>
+                                    <div class="shortcut-item">
+                                        <span>Skip to Main Content</span>
+                                        <span class="kbd">Alt + M</span>
+                                    </div>
+                                    <div class="shortcut-item">
+                                        <span>Focus Search</span>
+                                        <span class="kbd">Ctrl + K</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </main>
     </div>
 
-    <script src="accessibility.js"></script>
+    <script src="script.js"></script>
+    <script>
+        // Accessibility settings state
+        let accessibilitySettings = {
+            highContrast: false,
+            fontSize: 16,
+            textToSpeech: false,
+            voiceSpeed: 1.0,
+            language: 'en',
+            reducedMotion: false,
+            keyboardNav: true,
+            screenReader: false,
+            dyslexiaFont: false,
+            colorBlindMode: 'none'
+        };
+
+        let speechSynthesis = window.speechSynthesis;
+        let currentUtterance = null;
+        let isPlaying = false;
+
+        // Initialize page
+        document.addEventListener('DOMContentLoaded', function() {
+            loadSettings();
+            setupKeyboardShortcuts();
+            updateTTSControls();
+        });
+
+        function loadSettings() {
+            const saved = localStorage.getItem('edumorph_accessibility');
+            if (saved) {
+                accessibilitySettings = { ...accessibilitySettings, ...JSON.parse(saved) };
+            }
+            
+            // Apply saved settings
+            applyAllSettings();
+        }
+
+        function saveSettings() {
+            localStorage.setItem('edumorph_accessibility', JSON.stringify(accessibilitySettings));
+        }
+
+        function applyAllSettings() {
+            // Update UI controls
+            document.getElementById('fontSizeSlider').value = accessibilitySettings.fontSize;
+            document.getElementById('fontSizeValue').textContent = accessibilitySettings.fontSize + 'px';
+            document.getElementById('voiceSpeedSlider').value = accessibilitySettings.voiceSpeed;
+            document.getElementById('voiceSpeedValue').textContent = accessibilitySettings.voiceSpeed + 'x';
+            document.getElementById('languageSelect').value = accessibilitySettings.language;
+            document.getElementById('colorBlindSelect').value = accessibilitySettings.colorBlindMode;
+
+            // Update switches
+            updateSwitch('highContrastSwitch', accessibilitySettings.highContrast);
+            updateSwitch('ttsSwitch', accessibilitySettings.textToSpeech);
+            updateSwitch('dyslexiaFontSwitch', accessibilitySettings.dyslexiaFont);
+            updateSwitch('reducedMotionSwitch', accessibilitySettings.reducedMotion);
+            updateSwitch('keyboardNavSwitch', accessibilitySettings.keyboardNav);
+            updateSwitch('screenReaderSwitch', accessibilitySettings.screenReader);
+
+            // Apply visual changes
+            updateFontSize(accessibilitySettings.fontSize);
+            if (accessibilitySettings.highContrast) toggleHighContrast();
+            if (accessibilitySettings.dyslexiaFont) toggleDyslexiaFont();
+            if (accessibilitySettings.reducedMotion) toggleReducedMotion();
+            updateColorBlindMode(accessibilitySettings.colorBlindMode);
+            updateTTSControls();
+        }
+
+        function updateSwitch(switchId, active) {
+            const switchEl = document.getElementById(switchId);
+            if (active) {
+                switchEl.classList.add('active');
+            } else {
+                switchEl.classList.remove('active');
+            }
+        }
+
+        function setupKeyboardShortcuts() {
+            document.addEventListener('keydown', function(e) {
+                if (e.ctrlKey || e.metaKey) {
+                    switch(e.key) {
+                        case 't':
+                            e.preventDefault();
+                            toggleTextToSpeech();
+                            break;
+                        case 'h':
+                            e.preventDefault();
+                            toggleHighContrast();
+                            break;
+                        case '=':
+                        case '+':
+                            e.preventDefault();
+                            if (accessibilitySettings.fontSize < 24) {
+                                updateFontSize(accessibilitySettings.fontSize + 1);
+                                document.getElementById('fontSizeSlider').value = accessibilitySettings.fontSize;
+                            }
+                            break;
+                        case '-':
+                            e.preventDefault();
+                            if (accessibilitySettings.fontSize > 12) {
+                                updateFontSize(accessibilitySettings.fontSize - 1);
+                                document.getElementById('fontSizeSlider').value = accessibilitySettings.fontSize;
+                            }
+                            break;
+                    }
+                }
+            });
+        }
+
+        function toggleHighContrast() {
+            accessibilitySettings.highContrast = !accessibilitySettings.highContrast;
+            updateSwitch('highContrastSwitch', accessibilitySettings.highContrast);
+            
+            const body = document.getElementById('pageBody');
+            if (accessibilitySettings.highContrast) {
+                body.classList.add('high-contrast');
+            } else {
+                body.classList.remove('high-contrast');
+            }
+            
+            saveSettings();
+        }
+
+        function updateFontSize(size) {
+            accessibilitySettings.fontSize = parseInt(size);
+            document.getElementById('fontSizeValue').textContent = size + 'px';
+            
+            // Apply font size to content areas
+            const contentAreas = document.querySelectorAll('#sampleContent, #ttsDemo');
+            contentAreas.forEach(area => {
+                area.style.fontSize = size + 'px';
+            });
+            
+            saveSettings();
+        }
+
+        function toggleTextToSpeech() {
+            accessibilitySettings.textToSpeech = !accessibilitySettings.textToSpeech;
+            updateSwitch('ttsSwitch', accessibilitySettings.textToSpeech);
+            updateTTSControls();
+            saveSettings();
+        }
+
+        function updateVoiceSpeed(speed) {
+            accessibilitySettings.voiceSpeed = parseFloat(speed);
+            document.getElementById('voiceSpeedValue').textContent = speed + 'x';
+            saveSettings();
+        }
+
+        function updateLanguage(lang) {
+            accessibilitySettings.language = lang;
+            saveSettings();
+        }
+
+        function toggleDyslexiaFont() {
+            accessibilitySettings.dyslexiaFont = !accessibilitySettings.dyslexiaFont;
+            updateSwitch('dyslexiaFontSwitch', accessibilitySettings.dyslexiaFont);
+            
+            const contentAreas = document.querySelectorAll('#sampleContent, #ttsDemo');
+            contentAreas.forEach(area => {
+                if (accessibilitySettings.dyslexiaFont) {
+                    area.style.fontFamily = 'monospace';
+                } else {
+                    area.style.fontFamily = '';
+                }
+            });
+            
+            saveSettings();
+        }
+
+        function updateColorBlindMode(mode) {
+            accessibilitySettings.colorBlindMode = mode;
+            
+            const body = document.getElementById('pageBody');
+            body.classList.remove('protanopia', 'deuteranopia', 'tritanopia');
+            
+            if (mode !== 'none') {
+                body.classList.add(mode);
+            }
+            
+            saveSettings();
+        }
+
+        function toggleReducedMotion() {
+            accessibilitySettings.reducedMotion = !accessibilitySettings.reducedMotion;
+            updateSwitch('reducedMotionSwitch', accessibilitySettings.reducedMotion);
+            
+            const body = document.getElementById('pageBody');
+            if (accessibilitySettings.reducedMotion) {
+                body.classList.add('reduced-motion');
+            } else {
+                body.classList.remove('reduced-motion');
+            }
+            
+            saveSettings();
+        }
+
+        function toggleKeyboardNav() {
+            accessibilitySettings.keyboardNav = !accessibilitySettings.keyboardNav;
+            updateSwitch('keyboardNavSwitch', accessibilitySettings.keyboardNav);
+            saveSettings();
+        }
+
+        function toggleScreenReader() {
+            accessibilitySettings.screenReader = !accessibilitySettings.screenReader;
+            updateSwitch('screenReaderSwitch', accessibilitySettings.screenReader);
+            saveSettings();
+        }
+
+        function updateTTSControls() {
+            const controls = ['playBtn', 'stopBtn', 'skipBackBtn', 'skipForwardBtn'];
+            const disabledMessage = document.getElementById('ttsDisabled');
+            
+            controls.forEach(id => {
+                document.getElementById(id).disabled = !accessibilitySettings.textToSpeech;
+            });
+            
+            disabledMessage.style.display = accessibilitySettings.textToSpeech ? 'none' : 'block';
+        }
+
+        function togglePlayback() {
+            if (!accessibilitySettings.textToSpeech) return;
+            
+            if (isPlaying) {
+                pausePlayback();
+            } else {
+                startPlayback();
+            }
+        }
+
+        function startPlayback() {
+            const text = document.getElementById('demoText').textContent;
+            
+            if (currentUtterance) {
+                speechSynthesis.cancel();
+            }
+            
+            currentUtterance = new SpeechSynthesisUtterance(text);
+            currentUtterance.rate = accessibilitySettings.voiceSpeed;
+            currentUtterance.lang = accessibilitySettings.language;
+            
+            currentUtterance.onstart = function() {
+                isPlaying = true;
+                document.getElementById('playIcon').className = 'fas fa-pause';
+                document.getElementById('playText').textContent = 'Pause';
+            };
+            
+            currentUtterance.onend = function() {
+                isPlaying = false;
+                document.getElementById('playIcon').className = 'fas fa-play';
+                document.getElementById('playText').textContent = 'Play';
+            };
+            
+            currentUtterance.onerror = function() {
+                isPlaying = false;
+                document.getElementById('playIcon').className = 'fas fa-play';
+                document.getElementById('playText').textContent = 'Play';
+            };
+            
+            speechSynthesis.speak(currentUtterance);
+        }
+
+        function pausePlayback() {
+            speechSynthesis.pause();
+            isPlaying = false;
+            document.getElementById('playIcon').className = 'fas fa-play';
+            document.getElementById('playText').textContent = 'Resume';
+        }
+
+        function stopPlayback() {
+            speechSynthesis.cancel();
+            isPlaying = false;
+            document.getElementById('playIcon').className = 'fas fa-play';
+            document.getElementById('playText').textContent = 'Play';
+        }
+
+        function skipBackward() {
+            // In a real implementation, this would skip to previous sentence/paragraph
+            stopPlayback();
+        }
+
+        function skipForward() {
+            // In a real implementation, this would skip to next sentence/paragraph
+            stopPlayback();
+        }
+
+        function logout() {
+            localStorage.removeItem('edumorph_user');
+            localStorage.removeItem('edumorph_session');
+            window.location.href = 'index.html';
+        }
+    </script>
 </body>
 </html>

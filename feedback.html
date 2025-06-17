@@ -6,6 +6,219 @@
     <title>Feedback - EduMorph</title>
     <link rel="stylesheet" href="styles.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        .feedback-form {
+            background: white;
+            padding: 2rem;
+            border-radius: 1rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        }
+        
+        .rating-stars {
+            display: flex;
+            gap: 0.25rem;
+            margin: 0.5rem 0;
+        }
+        
+        .rating-stars .star {
+            font-size: 1.5rem;
+            color: #d1d5db;
+            cursor: pointer;
+            transition: color 0.2s;
+        }
+        
+        .rating-stars .star.active,
+        .rating-stars .star:hover {
+            color: #fbbf24;
+        }
+        
+        .rating-feedback {
+            margin-top: 0.5rem;
+            font-size: 0.875rem;
+            color: #6b7280;
+        }
+        
+        .success-message {
+            text-align: center;
+            padding: 2rem;
+        }
+        
+        .success-icon {
+            font-size: 4rem;
+            color: #10b981;
+            margin-bottom: 1rem;
+        }
+        
+        .quick-feedback {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 1rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        }
+        
+        .quick-feedback-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0.75rem;
+            border: 1px solid #e5e7eb;
+            border-radius: 0.5rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .quick-feedback-item:last-child {
+            margin-bottom: 0;
+        }
+        
+        .quick-rating {
+            display: flex;
+            gap: 0.25rem;
+        }
+        
+        .quick-rating .star {
+            font-size: 1rem;
+            color: #d1d5db;
+            cursor: pointer;
+            transition: color 0.2s;
+        }
+        
+        .quick-rating .star:hover {
+            color: #fbbf24;
+        }
+        
+        .feedback-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        
+        .feedback-stat {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 0.75rem;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        
+        .stat-icon {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .stat-number {
+            font-size: 2rem;
+            font-weight: bold;
+            margin-bottom: 0.25rem;
+        }
+        
+        .stat-label {
+            color: #6b7280;
+            font-size: 0.875rem;
+        }
+        
+        .community-feedback {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 1rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        }
+        
+        .feedback-item {
+            border: 1px solid #e5e7eb;
+            border-radius: 0.5rem;
+            padding: 1rem;
+            margin-bottom: 1rem;
+        }
+        
+        .feedback-item:last-child {
+            margin-bottom: 0;
+        }
+        
+        .feedback-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 0.75rem;
+        }
+        
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+        
+        .user-avatar {
+            width: 2rem;
+            height: 2rem;
+            background: linear-gradient(135deg, #8b5cf6 0%, #3b82f6 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 0.875rem;
+            font-weight: 600;
+        }
+        
+        .feedback-rating {
+            display: flex;
+            gap: 0.125rem;
+        }
+        
+        .feedback-rating .star {
+            font-size: 1rem;
+        }
+        
+        .feedback-rating .star.filled {
+            color: #fbbf24;
+        }
+        
+        .feedback-rating .star.empty {
+            color: #d1d5db;
+        }
+        
+        .feedback-trends {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 1rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        }
+        
+        .trend-item {
+            display: flex;
+            align-items: center;
+            justify-content: between;
+            padding: 1rem;
+            border: 1px solid #e5e7eb;
+            border-radius: 0.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .trend-item:last-child {
+            margin-bottom: 0;
+        }
+        
+        .trend-color {
+            width: 0.75rem;
+            height: 0.75rem;
+            border-radius: 50%;
+            margin-right: 0.75rem;
+        }
+        
+        .trend-info {
+            flex: 1;
+            font-weight: 500;
+        }
+        
+        .trend-stats {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            font-size: 0.875rem;
+            color: #6b7280;
+        }
+    </style>
 </head>
 <body>
     <div class="dashboard-layout">
@@ -46,6 +259,10 @@
                     <i class="fas fa-universal-access"></i>
                     <span>Accessibility</span>
                 </a>
+                <a href="profile.html" class="nav-item">
+                    <i class="fas fa-user"></i>
+                    <span>Profile</span>
+                </a>
             </nav>
             <div class="sidebar-footer">
                 <button class="btn btn-outline btn-small" onclick="logout()">
@@ -58,197 +275,462 @@
         <!-- Main Content -->
         <main class="main-content">
             <header class="page-header">
-                <h1>Feedback & Support</h1>
-                <p>Help us improve your learning experience</p>
+                <h1>Feedback Center 💬</h1>
+                <p>Help us improve EduMorph with your valuable feedback</p>
             </header>
 
-            <div class="feedback-content">
-                <!-- Feedback Tabs -->
-                <div class="feedback-tabs">
-                    <button class="tab-btn active" onclick="showFeedbackTab('general')">General Feedback</button>
-                    <button class="tab-btn" onclick="showFeedbackTab('course')">Course Feedback</button>
-                    <button class="tab-btn" onclick="showFeedbackTab('bug')">Report Bug</button>
-                    <button class="tab-btn" onclick="showFeedbackTab('feature')">Feature Request</button>
-                </div>
+            <div class="page-content">
+                <!-- Tabs -->
+                <div class="tabs">
+                    <div class="tab-list">
+                        <button class="tab-button active" onclick="showTab('submit')">Submit Feedback</button>
+                        <button class="tab-button" onclick="showTab('community')">Community Feedback</button>
+                        <button class="tab-button" onclick="showTab('analytics')">Feedback Analytics</button>
+                    </div>
 
-                <!-- General Feedback -->
-                <div id="general-tab" class="feedback-tab-content active">
-                    <div class="feedback-form-container">
-                        <h2>General Feedback</h2>
-                        <p>Share your overall experience with EduMorph</p>
-                        
-                        <form class="feedback-form" id="general-feedback-form">
-                            <div class="form-group">
-                                <label for="rating">Overall Rating</label>
-                                <div class="rating-stars" id="general-rating">
-                                    <i class="fas fa-star" data-rating="1"></i>
-                                    <i class="fas fa-star" data-rating="2"></i>
-                                    <i class="fas fa-star" data-rating="3"></i>
-                                    <i class="fas fa-star" data-rating="4"></i>
-                                    <i class="fas fa-star" data-rating="5"></i>
+                    <!-- Submit Feedback Tab -->
+                    <div class="tab-content active" id="submit-tab">
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;">
+                            <!-- Feedback Form -->
+                            <div class="feedback-form">
+                                <div class="card-header">
+                                    <h3><i class="fas fa-comment-dots"></i> Share Your Experience</h3>
+                                    <p>Your feedback helps us create better learning experiences</p>
+                                </div>
+
+                                <div id="feedbackForm">
+                                    <form id="submitFeedbackForm" onsubmit="submitFeedback(event)">
+                                        <div class="form-group">
+                                            <label for="feedbackType">Feedback Type</label>
+                                            <select id="feedbackType" required>
+                                                <option value="">Select feedback type</option>
+                                                <option value="bug">Bug Report</option>
+                                                <option value="feature">Feature Request</option>
+                                                <option value="improvement">Improvement Suggestion</option>
+                                                <option value="course">Course Feedback</option>
+                                                <option value="general">General Feedback</option>
+                                                <option value="accessibility">Accessibility Issue</option>
+                                            </select>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label>Overall Rating</label>
+                                            <div class="rating-stars" id="overallRating">
+                                                <i class="fas fa-star star" data-rating="1"></i>
+                                                <i class="fas fa-star star" data-rating="2"></i>
+                                                <i class="fas fa-star star" data-rating="3"></i>
+                                                <i class="fas fa-star star" data-rating="4"></i>
+                                                <i class="fas fa-star star" data-rating="5"></i>
+                                            </div>
+                                            <div class="rating-feedback" id="ratingFeedback"></div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="feedbackSubject">Subject</label>
+                                            <input type="text" id="feedbackSubject" placeholder="Brief description of your feedback" required>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="feedbackMessage">Detailed Feedback</label>
+                                            <textarea id="feedbackMessage" rows="4" placeholder="Please provide detailed feedback about your experience..." required></textarea>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="feedbackEmail">Email (Optional)</label>
+                                            <input type="email" id="feedbackEmail" placeholder="your.email@example.com">
+                                            <small>Provide your email if you'd like us to follow up on your feedback</small>
+                                        </div>
+
+                                        <button type="submit" class="btn btn-primary btn-full" id="submitBtn">
+                                            <i class="fas fa-paper-plane"></i>
+                                            Submit Feedback
+                                        </button>
+                                    </form>
+                                </div>
+
+                                <div id="successMessage" class="success-message" style="display: none;">
+                                    <div class="success-icon">
+                                        <i class="fas fa-check-circle"></i>
+                                    </div>
+                                    <h3>Thank You!</h3>
+                                    <p>Your feedback has been submitted successfully. We'll review it and get back to you within 24 hours.</p>
+                                    <button class="btn btn-outline" onclick="resetForm()">Submit Another Feedback</button>
                                 </div>
                             </div>
 
-                            <div class="form-group">
-                                <label for="general-feedback">Your Feedback</label>
-                                <textarea id="general-feedback" name="feedback" placeholder="Tell us about your experience..." required></textarea>
-                            </div>
+                            <!-- Quick Feedback & Guidelines -->
+                            <div>
+                                <div class="quick-feedback">
+                                    <h3>Quick Feedback</h3>
+                                    <p style="margin-bottom: 1rem; color: #6b7280;">Rate specific features quickly</p>
+                                    
+                                    <div class="quick-feedback-item">
+                                        <span>AI Course Recommendations</span>
+                                        <div class="quick-rating">
+                                            <i class="fas fa-star star" onclick="quickRate(this, 1)"></i>
+                                            <i class="fas fa-star star" onclick="quickRate(this, 2)"></i>
+                                            <i class="fas fa-star star" onclick="quickRate(this, 3)"></i>
+                                            <i class="fas fa-star star" onclick="quickRate(this, 4)"></i>
+                                            <i class="fas fa-star star" onclick="quickRate(this, 5)"></i>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="quick-feedback-item">
+                                        <span>User Interface Design</span>
+                                        <div class="quick-rating">
+                                            <i class="fas fa-star star" onclick="quickRate(this, 1)"></i>
+                                            <i class="fas fa-star star" onclick="quickRate(this, 2)"></i>
+                                            <i class="fas fa-star star" onclick="quickRate(this, 3)"></i>
+                                            <i class="fas fa-star star" onclick="quickRate(this, 4)"></i>
+                                            <i class="fas fa-star star" onclick="quickRate(this, 5)"></i>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="quick-feedback-item">
+                                        <span>Learning Progress Tracking</span>
+                                        <div class="quick-rating">
+                                            <i class="fas fa-star star" onclick="quickRate(this, 1)"></i>
+                                            <i class="fas fa-star star" onclick="quickRate(this, 2)"></i>
+                                            <i class="fas fa-star star" onclick="quickRate(this, 3)"></i>
+                                            <i class="fas fa-star star" onclick="quickRate(this, 4)"></i>
+                                            <i class="fas fa-star star" onclick="quickRate(this, 5)"></i>
+                                        </div>
+                                    </div>
+                                </div>
 
-                            <div class="form-group">
-                                <label for="improvement">What could we improve?</label>
-                                <textarea id="improvement" name="improvement" placeholder="Suggestions for improvement..."></textarea>
-                            </div>
-
-                            <button type="submit" class="btn btn-primary">Submit Feedback</button>
-                        </form>
-                    </div>
-                </div>
-
-                <!-- Course Feedback -->
-                <div id="course-tab" class="feedback-tab-content">
-                    <div class="feedback-form-container">
-                        <h2>Course Feedback</h2>
-                        <p>Rate and review specific courses</p>
-                        
-                        <form class="feedback-form" id="course-feedback-form">
-                            <div class="form-group">
-                                <label for="course-select">Select Course</label>
-                                <select id="course-select" name="course" required>
-                                    <option value="">Choose a course...</option>
-                                    <option value="javascript-basics">JavaScript Basics</option>
-                                    <option value="python-fundamentals">Python Fundamentals</option>
-                                    <option value="web-design">Web Design Principles</option>
-                                    <option value="data-science">Data Science Introduction</option>
-                                </select>
-                            </div>
-
-                            <div class="form-group">
-                                <label for="course-rating">Course Rating</label>
-                                <div class="rating-stars" id="course-rating">
-                                    <i class="fas fa-star" data-rating="1"></i>
-                                    <i class="fas fa-star" data-rating="2"></i>
-                                    <i class="fas fa-star" data-rating="3"></i>
-                                    <i class="fas fa-star" data-rating="4"></i>
-                                    <i class="fas fa-star" data-rating="5"></i>
+                                <div class="card" style="margin-top: 1.5rem;">
+                                    <div class="card-header">
+                                        <h3>Feedback Guidelines</h3>
+                                    </div>
+                                    <div class="card-content">
+                                        <div style="display: flex; align-items: start; gap: 0.75rem; margin-bottom: 0.75rem;">
+                                            <div style="width: 0.5rem; height: 0.5rem; background: #8b5cf6; border-radius: 50%; margin-top: 0.5rem;"></div>
+                                            <p style="font-size: 0.875rem;">Be specific about the issue or suggestion</p>
+                                        </div>
+                                        <div style="display: flex; align-items: start; gap: 0.75rem; margin-bottom: 0.75rem;">
+                                            <div style="width: 0.5rem; height: 0.5rem; background: #3b82f6; border-radius: 50%; margin-top: 0.5rem;"></div>
+                                            <p style="font-size: 0.875rem;">Include steps to reproduce bugs</p>
+                                        </div>
+                                        <div style="display: flex; align-items: start; gap: 0.75rem; margin-bottom: 0.75rem;">
+                                            <div style="width: 0.5rem; height: 0.5rem; background: #10b981; border-radius: 50%; margin-top: 0.5rem;"></div>
+                                            <p style="font-size: 0.875rem;">Suggest improvements constructively</p>
+                                        </div>
+                                        <div style="display: flex; align-items: start; gap: 0.75rem;">
+                                            <div style="width: 0.5rem; height: 0.5rem; background: #f59e0b; border-radius: 50%; margin-top: 0.5rem;"></div>
+                                            <p style="font-size: 0.875rem;">Rate your overall experience honestly</p>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
+                        </div>
+                    </div>
 
-                            <div class="form-group">
-                                <label for="course-feedback">Course Review</label>
-                                <textarea id="course-feedback" name="feedback" placeholder="What did you think of this course?" required></textarea>
+                    <!-- Community Feedback Tab -->
+                    <div class="tab-content" id="community-tab">
+                        <div class="community-feedback">
+                            <div class="card-header">
+                                <h3>Recent Community Feedback</h3>
+                                <p>See what other learners are saying about EduMorph</p>
                             </div>
+                            
+                            <div id="communityFeedbackList">
+                                <!-- Community feedback will be loaded here -->
+                            </div>
+                        </div>
+                    </div>
 
-                            <div class="form-group">
-                                <label for="instructor-rating">Instructor Rating</label>
-                                <div class="rating-stars" id="instructor-rating">
-                                    <i class="fas fa-star" data-rating="1"></i>
-                                    <i class="fas fa-star" data-rating="2"></i>
-                                    <i class="fas fa-star" data-rating="3"></i>
-                                    <i class="fas fa-star" data-rating="4"></i>
-                                    <i class="fas fa-star" data-rating="5"></i>
+                    <!-- Analytics Tab -->
+                    <div class="tab-content" id="analytics-tab">
+                        <div class="feedback-stats">
+                            <div class="feedback-stat">
+                                <div class="stat-icon" style="color: #8b5cf6;">
+                                    <i class="fas fa-comments"></i>
                                 </div>
+                                <div class="stat-number">1,247</div>
+                                <div class="stat-label">Total Feedback</div>
+                                <small style="color: #10b981;">+12% from last month</small>
                             </div>
-
-                            <button type="submit" class="btn btn-primary">Submit Review</button>
-                        </form>
-                    </div>
-                </div>
-
-                <!-- Bug Report -->
-                <div id="bug-tab" class="feedback-tab-content">
-                    <div class="feedback-form-container">
-                        <h2>Report a Bug</h2>
-                        <p>Help us fix issues by reporting bugs</p>
-                        
-                        <form class="feedback-form" id="bug-report-form">
-                            <div class="form-group">
-                                <label for="bug-title">Bug Title</label>
-                                <input type="text" id="bug-title" name="title" placeholder="Brief description of the issue" required>
+                            
+                            <div class="feedback-stat">
+                                <div class="stat-icon" style="color: #fbbf24;">
+                                    <i class="fas fa-star"></i>
+                                </div>
+                                <div class="stat-number">4.8</div>
+                                <div class="stat-label">Average Rating</div>
+                                <small style="color: #6b7280;">Out of 5 stars</small>
                             </div>
-
-                            <div class="form-group">
-                                <label for="bug-severity">Severity</label>
-                                <select id="bug-severity" name="severity" required>
-                                    <option value="">Select severity</option>
-                                    <option value="low">Low - Minor inconvenience</option>
-                                    <option value="medium">Medium - Affects functionality</option>
-                                    <option value="high">High - Prevents normal use</option>
-                                    <option value="critical">Critical - System unusable</option>
-                                </select>
+                            
+                            <div class="feedback-stat">
+                                <div class="stat-icon" style="color: #10b981;">
+                                    <i class="fas fa-chart-line"></i>
+                                </div>
+                                <div class="stat-number">98%</div>
+                                <div class="stat-label">Response Rate</div>
+                                <small style="color: #6b7280;">Within 24 hours</small>
                             </div>
-
-                            <div class="form-group">
-                                <label for="bug-description">Description</label>
-                                <textarea id="bug-description" name="description" placeholder="Detailed description of the bug..." required></textarea>
+                            
+                            <div class="feedback-stat">
+                                <div class="stat-icon" style="color: #3b82f6;">
+                                    <i class="fas fa-users"></i>
+                                </div>
+                                <div class="stat-number">156</div>
+                                <div class="stat-label">Improvements</div>
+                                <small style="color: #6b7280;">Implemented this year</small>
                             </div>
+                        </div>
 
-                            <div class="form-group">
-                                <label for="bug-steps">Steps to Reproduce</label>
-                                <textarea id="bug-steps" name="steps" placeholder="1. Go to...&#10;2. Click on...&#10;3. See error..."></textarea>
+                        <div class="feedback-trends">
+                            <div class="card-header">
+                                <h3>Feedback Trends</h3>
+                                <p>Most common feedback categories and their resolution status</p>
                             </div>
-
-                            <div class="form-group">
-                                <label for="bug-browser">Browser/Device</label>
-                                <input type="text" id="bug-browser" name="browser" placeholder="e.g., Chrome 91, Safari on iPhone">
+                            
+                            <div id="feedbackTrends">
+                                <!-- Trends will be loaded here -->
                             </div>
-
-                            <button type="submit" class="btn btn-primary">Report Bug</button>
-                        </form>
-                    </div>
-                </div>
-
-                <!-- Feature Request -->
-                <div id="feature-tab" class="feedback-tab-content">
-                    <div class="feedback-form-container">
-                        <h2>Feature Request</h2>
-                        <p>Suggest new features or improvements</p>
-                        
-                        <form class="feedback-form" id="feature-request-form">
-                            <div class="form-group">
-                                <label for="feature-title">Feature Title</label>
-                                <input type="text" id="feature-title" name="title" placeholder="Name of the requested feature" required>
-                            </div>
-
-                            <div class="form-group">
-                                <label for="feature-category">Category</label>
-                                <select id="feature-category" name="category" required>
-                                    <option value="">Select category</option>
-                                    <option value="ui">User Interface</option>
-                                    <option value="learning">Learning Tools</option>
-                                    <option value="ai">AI Features</option>
-                                    <option value="social">Social Features</option>
-                                    <option value="mobile">Mobile App</option>
-                                    <option value="other">Other</option>
-                                </select>
-                            </div>
-
-                            <div class="form-group">
-                                <label for="feature-description">Description</label>
-                                <textarea id="feature-description" name="description" placeholder="Detailed description of the feature..." required></textarea>
-                            </div>
-
-                            <div class="form-group">
-                                <label for="feature-benefit">Why is this useful?</label>
-                                <textarea id="feature-benefit" name="benefit" placeholder="How would this feature benefit users?"></textarea>
-                            </div>
-
-                            <div class="form-group">
-                                <label for="feature-priority">Priority</label>
-                                <select id="feature-priority" name="priority">
-                                    <option value="low">Low - Nice to have</option>
-                                    <option value="medium">Medium - Would be helpful</option>
-                                    <option value="high">High - Really needed</option>
-                                </select>
-                            </div>
-
-                            <button type="submit" class="btn btn-primary">Submit Request</button>
-                        </form>
+                        </div>
                     </div>
                 </div>
             </div>
         </main>
     </div>
 
-    <script src="feedback.js"></script>
+    <script src="script.js"></script>
+    <script>
+        let currentRating = 0;
+
+        // Sample data
+        const communityFeedback = [
+            {
+                id: 1,
+                user: "Sarah M.",
+                rating: 5,
+                comment: "The AI course recommendations are incredibly accurate! I've learned more in 2 weeks than in months.",
+                course: "Advanced Mathematics",
+                date: "2 days ago"
+            },
+            {
+                id: 2,
+                user: "Michael R.",
+                rating: 4,
+                comment: "Love the accessibility features. The text-to-speech has been a game-changer for my learning.",
+                course: "Computer Science",
+                date: "1 week ago"
+            },
+            {
+                id: 3,
+                user: "Emily Chen",
+                rating: 5,
+                comment: "The gamification keeps me motivated. Already at level 15!",
+                course: "World History",
+                date: "1 week ago"
+            }
+        ];
+
+        const feedbackTrends = [
+            { category: "Feature Requests", count: 45, resolved: 38, color: "#3b82f6" },
+            { category: "Bug Reports", count: 23, resolved: 21, color: "#ef4444" },
+            { category: "UI/UX Improvements", count: 34, resolved: 29, color: "#10b981" },
+            { category: "Course Content", count: 28, resolved: 25, color: "#8b5cf6" },
+            { category: "Accessibility", count: 16, resolved: 14, color: "#f59e0b" }
+        ];
+
+        // Initialize page
+        document.addEventListener('DOMContentLoaded', function() {
+            setupRatingStars();
+            loadCommunityFeedback();
+            loadFeedbackTrends();
+        });
+
+        function setupRatingStars() {
+            const stars = document.querySelectorAll('#overallRating .star');
+            stars.forEach(star => {
+                star.addEventListener('click', function() {
+                    const rating = parseInt(this.dataset.rating);
+                    setRating(rating);
+                });
+            });
+        }
+
+        function setRating(rating) {
+            currentRating = rating;
+            const stars = document.querySelectorAll('#overallRating .star');
+            const feedback = document.getElementById('ratingFeedback');
+            
+            stars.forEach((star, index) => {
+                if (index < rating) {
+                    star.classList.add('active');
+                } else {
+                    star.classList.remove('active');
+                }
+            });
+
+            const feedbackText = {
+                1: "Needs Improvement 😞",
+                2: "Fair 😐",
+                3: "Good 👌",
+                4: "Very Good! 👍",
+                5: "Excellent! 🌟"
+            };
+
+            feedback.textContent = feedbackText[rating] || "";
+        }
+
+        function quickRate(starElement, rating) {
+            const container = starElement.parentElement;
+            const stars = container.querySelectorAll('.star');
+            
+            stars.forEach((star, index) => {
+                if (index < rating) {
+                    star.style.color = '#fbbf24';
+                } else {
+                    star.style.color = '#d1d5db';
+                }
+            });
+        }
+
+        function submitFeedback(event) {
+            event.preventDefault();
+            
+            const submitBtn = document.getElementById('submitBtn');
+            const form = document.getElementById('feedbackForm');
+            const successMessage = document.getElementById('successMessage');
+            
+            // Get form data
+            const feedbackData = {
+                type: document.getElementById('feedbackType').value,
+                rating: currentRating,
+                subject: document.getElementById('feedbackSubject').value,
+                message: document.getElementById('feedbackMessage').value,
+                email: document.getElementById('feedbackEmail').value
+            };
+
+            // Validate required fields
+            if (!feedbackData.type || !feedbackData.subject || !feedbackData.message) {
+                alert('Please fill in all required fields.');
+                return;
+            }
+
+            if (currentRating === 0) {
+                alert('Please provide a rating.');
+                return;
+            }
+
+            // Show loading state
+            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Submitting...';
+            submitBtn.disabled = true;
+
+            // Simulate API call
+            setTimeout(() => {
+                // Save feedback (in real app, would send to server)
+                const existingFeedback = JSON.parse(localStorage.getItem('edumorph_feedback') || '[]');
+                existingFeedback.push({
+                    ...feedbackData,
+                    id: Date.now(),
+                    date: new Date().toISOString(),
+                    status: 'pending'
+                });
+                localStorage.setItem('edumorph_feedback', JSON.stringify(existingFeedback));
+
+                // Show success message
+                form.style.display = 'none';
+                successMessage.style.display = 'block';
+                
+                // Reset button
+                submitBtn.innerHTML = '<i class="fas fa-paper-plane"></i> Submit Feedback';
+                submitBtn.disabled = false;
+            }, 1500);
+        }
+
+        function resetForm() {
+            const form = document.getElementById('feedbackForm');
+            const successMessage = document.getElementById('successMessage');
+            
+            // Reset form
+            document.getElementById('submitFeedbackForm').reset();
+            setRating(0);
+            
+            // Show form again
+            form.style.display = 'block';
+            successMessage.style.display = 'none';
+        }
+
+        function loadCommunityFeedback() {
+            const container = document.getElementById('communityFeedbackList');
+            container.innerHTML = '';
+
+            communityFeedback.forEach(feedback => {
+                const item = document.createElement('div');
+                item.className = 'feedback-item';
+                
+                item.innerHTML = `
+                    <div class="feedback-header">
+                        <div class="user-info">
+                            <div class="user-avatar">${feedback.user.charAt(0)}</div>
+                            <div>
+                                <div style="font-weight: 600;">${feedback.user}</div>
+                                <div style="font-size: 0.875rem; color: #6b7280;">${feedback.date}</div>
+                            </div>
+                        </div>
+                        <div class="feedback-rating">
+                            ${Array.from({length: 5}, (_, i) => 
+                                `<i class="fas fa-star ${i < feedback.rating ? 'filled' : 'empty'}"></i>`
+                            ).join('')}
+                        </div>
+                    </div>
+                    <p style="color: #374151; margin-bottom: 0.5rem;">${feedback.comment}</p>
+                    <span class="badge badge-secondary">${feedback.course}</span>
+                `;
+                
+                container.appendChild(item);
+            });
+        }
+
+        function loadFeedbackTrends() {
+            const container = document.getElementById('feedbackTrends');
+            container.innerHTML = '';
+
+            feedbackTrends.forEach(trend => {
+                const item = document.createElement('div');
+                item.className = 'trend-item';
+                
+                const resolutionRate = Math.round((trend.resolved / trend.count) * 100);
+                
+                item.innerHTML = `
+                    <div style="display: flex; align-items: center; flex: 1;">
+                        <div class="trend-color" style="background: ${trend.color};"></div>
+                        <div class="trend-info">${trend.category}</div>
+                    </div>
+                    <div class="trend-stats">
+                        <span>${trend.count} total</span>
+                        <span class="badge badge-secondary">${trend.resolved} resolved</span>
+                        <span style="color: #10b981; font-weight: 600;">${resolutionRate}%</span>
+                    </div>
+                `;
+                
+                container.appendChild(item);
+            });
+        }
+
+        function showTab(tabName) {
+            // Hide all tabs
+            document.querySelectorAll('.tab-content').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            document.querySelectorAll('.tab-button').forEach(btn => {
+                btn.classList.remove('active');
+            });
+
+            // Show selected tab
+            document.getElementById(tabName + '-tab').classList.add('active');
+            event.target.classList.add('active');
+        }
+
+        function logout() {
+            localStorage.removeItem('edumorph_user');
+            localStorage.removeItem('edumorph_session');
+            window.location.href = 'index.html';
+        }
+    </script>
 </body>
 </html>

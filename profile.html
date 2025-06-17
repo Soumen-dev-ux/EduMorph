@@ -1,0 +1,887 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile - EduMorph</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        .profile-header {
+            background: linear-gradient(135deg, #4f46e5 0%, #2563eb 100%);
+            color: white;
+            padding: 2rem;
+            border-radius: 1rem;
+            margin-bottom: 2rem;
+        }
+        
+        .profile-avatar {
+            position: relative;
+            display: inline-block;
+        }
+        
+        .avatar {
+            width: 6rem;
+            height: 6rem;
+            border-radius: 50%;
+            border: 4px solid rgba(255, 255, 255, 0.2);
+            object-fit: cover;
+        }
+        
+        .avatar-placeholder {
+            width: 6rem;
+            height: 6rem;
+            border-radius: 50%;
+            border: 4px solid rgba(255, 255, 255, 0.2);
+            background: rgba(255, 255, 255, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            font-weight: bold;
+        }
+        
+        .camera-btn {
+            position: absolute;
+            bottom: -0.5rem;
+            right: -0.5rem;
+            width: 2rem;
+            height: 2rem;
+            border-radius: 50%;
+            background: white;
+            color: #4f46e5;
+            border: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+        }
+        
+        .profile-info {
+            flex: 1;
+            margin-left: 1.5rem;
+        }
+        
+        .profile-stats {
+            display: flex;
+            gap: 1.5rem;
+            margin-top: 1rem;
+            font-size: 0.875rem;
+        }
+        
+        .stat-item {
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+        }
+        
+        .tabs {
+            background: white;
+            border-radius: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .tab-list {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            border-bottom: 1px solid #e5e7eb;
+        }
+        
+        .tab-button {
+            padding: 1rem;
+            border: none;
+            background: none;
+            cursor: pointer;
+            transition: all 0.2s;
+            border-bottom: 2px solid transparent;
+        }
+        
+        .tab-button.active {
+            background: #eef2ff;
+            color: #4338ca;
+            border-bottom-color: #4338ca;
+        }
+        
+        .tab-content {
+            display: none;
+            padding: 1.5rem;
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+        
+        .stat-card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 0.75rem;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        
+        .stat-icon {
+            width: 3rem;
+            height: 3rem;
+            border-radius: 0.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.25rem;
+        }
+        
+        .stat-icon.emerald { background: linear-gradient(135deg, #10b981 0%, #059669 100%); }
+        .stat-icon.blue { background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%); }
+        .stat-icon.orange { background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%); }
+        .stat-icon.purple { background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%); }
+        
+        .stat-content h3 {
+            font-size: 1.5rem;
+            color: #1f2937;
+            margin-bottom: 0.25rem;
+        }
+        
+        .stat-content p {
+            color: #6b7280;
+            font-size: 0.875rem;
+            margin: 0;
+        }
+        
+        .progress-bar {
+            width: 100%;
+            height: 0.5rem;
+            background: #e5e7eb;
+            border-radius: 0.25rem;
+            overflow: hidden;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(135deg, #4f46e5 0%, #2563eb 100%);
+            transition: width 0.3s ease;
+        }
+        
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+        }
+        
+        .form-group {
+            margin-bottom: 1rem;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #374151;
+            font-weight: 500;
+        }
+        
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 0.75rem;
+            border: 2px solid #e5e7eb;
+            border-radius: 0.5rem;
+            transition: border-color 0.2s;
+        }
+        
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: #4f46e5;
+        }
+        
+        .form-group input:disabled,
+        .form-group textarea:disabled {
+            background: #f9fafb;
+            color: #6b7280;
+        }
+        
+        .switch-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1rem 0;
+        }
+        
+        .switch {
+            position: relative;
+            width: 3rem;
+            height: 1.5rem;
+            background: #d1d5db;
+            border-radius: 0.75rem;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        
+        .switch.active {
+            background: #4f46e5;
+        }
+        
+        .switch-thumb {
+            position: absolute;
+            top: 0.125rem;
+            left: 0.125rem;
+            width: 1.25rem;
+            height: 1.25rem;
+            background: white;
+            border-radius: 50%;
+            transition: transform 0.2s;
+        }
+        
+        .switch.active .switch-thumb {
+            transform: translateX(1.5rem);
+        }
+        
+        .achievement-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+        }
+        
+        .achievement-card {
+            padding: 1rem;
+            border-radius: 0.5rem;
+            border: 2px solid;
+            transition: all 0.2s;
+        }
+        
+        .achievement-card.earned {
+            background: linear-gradient(135deg, #fef3c7 0%, #fed7aa 100%);
+            border-color: #fbbf24;
+        }
+        
+        .achievement-card.locked {
+            background: #f8fafc;
+            border-color: #e2e8f0;
+        }
+        
+        .achievement-icon {
+            width: 2rem;
+            height: 2rem;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            margin-bottom: 0.5rem;
+        }
+        
+        .achievement-icon.earned {
+            background: #f59e0b;
+        }
+        
+        .achievement-icon.locked {
+            background: #9ca3af;
+        }
+        
+        .activity-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+        
+        .activity-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem;
+            background: #f8fafc;
+            border-radius: 0.5rem;
+        }
+        
+        .activity-icon {
+            width: 2.5rem;
+            height: 2.5rem;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .activity-icon.course { background: #dcfce7; color: #16a34a; }
+        .activity-icon.quiz { background: #dbeafe; color: #2563eb; }
+        .activity-icon.achievement { background: #fef3c7; color: #d97706; }
+        .activity-icon.streak { background: #fed7d7; color: #dc2626; }
+        
+        @media (max-width: 768px) {
+            .profile-header {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .profile-info {
+                margin-left: 0;
+                margin-top: 1rem;
+            }
+            
+            .tab-list {
+                grid-template-columns: 1fr;
+            }
+            
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="dashboard-layout">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <div class="sidebar-logo">
+                    <i class="fas fa-graduation-cap"></i>
+                    <span>EduMorph</span>
+                </div>
+            </div>
+            <nav class="sidebar-nav">
+                <a href="dashboard.html" class="nav-item">
+                    <i class="fas fa-home"></i>
+                    <span>Dashboard</span>
+                </a>
+                <a href="courses.html" class="nav-item">
+                    <i class="fas fa-book"></i>
+                    <span>Courses</span>
+                </a>
+                <a href="ai-assistant.html" class="nav-item">
+                    <i class="fas fa-robot"></i>
+                    <span>AI Assistant</span>
+                </a>
+                <a href="ai-recommendations.html" class="nav-item">
+                    <i class="fas fa-lightbulb"></i>
+                    <span>Recommendations</span>
+                </a>
+                <a href="ai-generator.html" class="nav-item">
+                    <i class="fas fa-magic"></i>
+                    <span>Content Generator</span>
+                </a>
+                <a href="feedback.html" class="nav-item">
+                    <i class="fas fa-comment"></i>
+                    <span>Feedback</span>
+                </a>
+                <a href="accessibility.html" class="nav-item">
+                    <i class="fas fa-universal-access"></i>
+                    <span>Accessibility</span>
+                </a>
+                <a href="profile.html" class="nav-item active">
+                    <i class="fas fa-user"></i>
+                    <span>Profile</span>
+                </a>
+            </nav>
+            <div class="sidebar-footer">
+                <button class="btn btn-outline btn-small" onclick="logout()">
+                    <i class="fas fa-sign-out-alt"></i>
+                    Logout
+                </button>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Profile Header -->
+            <div class="profile-header">
+                <div style="display: flex; align-items: center; gap: 1.5rem;">
+                    <div class="profile-avatar">
+                        <div class="avatar-placeholder" id="userAvatar">U</div>
+                        <button class="camera-btn">
+                            <i class="fas fa-camera"></i>
+                        </button>
+                    </div>
+                    <div class="profile-info">
+                        <h1 id="userName">John Doe</h1>
+                        <p id="userOccupation">Student</p>
+                        <div class="profile-stats">
+                            <div class="stat-item">
+                                <i class="fas fa-trophy"></i>
+                                <span>Level <span id="userLevel">12</span></span>
+                            </div>
+                            <div class="stat-item">
+                                <i class="fas fa-target"></i>
+                                <span><span id="userXP">2450</span> XP</span>
+                            </div>
+                            <div class="stat-item">
+                                <i class="fas fa-chart-line"></i>
+                                <span>Rank #<span id="userRank">156</span></span>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="btn btn-secondary" onclick="toggleEdit()" id="editBtn">
+                        <i class="fas fa-edit"></i>
+                        Edit Profile
+                    </button>
+                </div>
+            </div>
+
+            <!-- Tabs -->
+            <div class="tabs">
+                <div class="tab-list">
+                    <button class="tab-button active" onclick="showTab('overview')">Overview</button>
+                    <button class="tab-button" onclick="showTab('personal')">Personal Info</button>
+                    <button class="tab-button" onclick="showTab('preferences')">Preferences</button>
+                    <button class="tab-button" onclick="showTab('achievements')">Achievements</button>
+                    <button class="tab-button" onclick="showTab('activity')">Activity</button>
+                </div>
+
+                <!-- Overview Tab -->
+                <div class="tab-content active" id="overview-tab">
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <div class="stat-icon emerald">
+                                <i class="fas fa-book-open"></i>
+                            </div>
+                            <div class="stat-content">
+                                <h3>8</h3>
+                                <p>Completed</p>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon blue">
+                                <i class="fas fa-clock"></i>
+                            </div>
+                            <div class="stat-content">
+                                <h3>156</h3>
+                                <p>Hours</p>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon orange">
+                                <i class="fas fa-target"></i>
+                            </div>
+                            <div class="stat-content">
+                                <h3>87%</h3>
+                                <p>Avg Score</p>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon purple">
+                                <i class="fas fa-award"></i>
+                            </div>
+                            <div class="stat-content">
+                                <h3>5</h3>
+                                <p>Certificates</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <h3>Learning Progress</h3>
+                            <p>Your current learning journey</p>
+                        </div>
+                        <div class="card-content">
+                            <div style="margin-bottom: 1rem;">
+                                <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+                                    <span>Overall Progress</span>
+                                    <span>67%</span>
+                                </div>
+                                <div class="progress-bar">
+                                    <div class="progress-fill" style="width: 67%;"></div>
+                                </div>
+                            </div>
+                            <div>
+                                <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+                                    <span>Current Level Progress</span>
+                                    <span>Level 12</span>
+                                </div>
+                                <div class="progress-bar">
+                                    <div class="progress-fill" style="width: 75%;"></div>
+                                </div>
+                                <p style="font-size: 0.75rem; color: #6b7280; margin-top: 0.25rem;">550 XP to next level</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Personal Info Tab -->
+                <div class="tab-content" id="personal-tab">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3>Personal Information</h3>
+                            <p>Update your personal details and bio</p>
+                        </div>
+                        <div class="card-content">
+                            <form id="profileForm">
+                                <div class="form-grid">
+                                    <div class="form-group">
+                                        <label for="firstName">First Name</label>
+                                        <input type="text" id="firstName" value="John" disabled>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="lastName">Last Name</label>
+                                        <input type="text" id="lastName" value="Doe" disabled>
+                                    </div>
+                                </div>
+                                <div class="form-grid">
+                                    <div class="form-group">
+                                        <label for="email">Email</label>
+                                        <input type="email" id="email" value="john.doe@example.com" disabled>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="phone">Phone</label>
+                                        <input type="tel" id="phone" value="" disabled>
+                                    </div>
+                                </div>
+                                <div class="form-grid">
+                                    <div class="form-group">
+                                        <label for="occupation">Occupation</label>
+                                        <input type="text" id="occupation" value="Student" disabled>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="location">Location</label>
+                                        <input type="text" id="location" value="" disabled>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="bio">Bio</label>
+                                    <textarea id="bio" rows="3" placeholder="Tell us about yourself..." disabled></textarea>
+                                </div>
+                                <div class="form-group">
+                                    <label for="learningGoals">Learning Goals</label>
+                                    <textarea id="learningGoals" rows="3" placeholder="What do you want to achieve?" disabled></textarea>
+                                </div>
+                                <div id="saveButtons" style="display: none; gap: 0.5rem;">
+                                    <button type="button" class="btn btn-primary" onclick="saveProfile()">
+                                        <i class="fas fa-save"></i>
+                                        Save Changes
+                                    </button>
+                                    <button type="button" class="btn btn-outline" onclick="cancelEdit()">
+                                        Cancel
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Preferences Tab -->
+                <div class="tab-content" id="preferences-tab">
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem;">
+                        <div class="card">
+                            <div class="card-header">
+                                <h3><i class="fas fa-bell"></i> Notifications</h3>
+                                <p>Manage your notification preferences</p>
+                            </div>
+                            <div class="card-content">
+                                <div class="switch-container">
+                                    <div>
+                                        <strong>Email Notifications</strong>
+                                        <p style="font-size: 0.875rem; color: #6b7280;">Receive updates via email</p>
+                                    </div>
+                                    <div class="switch active" onclick="toggleSwitch(this)">
+                                        <div class="switch-thumb"></div>
+                                    </div>
+                                </div>
+                                <div class="switch-container">
+                                    <div>
+                                        <strong>Push Notifications</strong>
+                                        <p style="font-size: 0.875rem; color: #6b7280;">Browser push notifications</p>
+                                    </div>
+                                    <div class="switch" onclick="toggleSwitch(this)">
+                                        <div class="switch-thumb"></div>
+                                    </div>
+                                </div>
+                                <div class="switch-container">
+                                    <div>
+                                        <strong>Weekly Digest</strong>
+                                        <p style="font-size: 0.875rem; color: #6b7280;">Weekly progress summary</p>
+                                    </div>
+                                    <div class="switch active" onclick="toggleSwitch(this)">
+                                        <div class="switch-thumb"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card">
+                            <div class="card-header">
+                                <h3><i class="fas fa-cog"></i> Learning Preferences</h3>
+                                <p>Customize your learning experience</p>
+                            </div>
+                            <div class="card-content">
+                                <div class="form-group">
+                                    <label for="language">Language</label>
+                                    <select id="language">
+                                        <option value="en">English</option>
+                                        <option value="es">Español</option>
+                                        <option value="fr">Français</option>
+                                        <option value="de">Deutsch</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="difficulty">Difficulty Level</label>
+                                    <select id="difficulty">
+                                        <option value="beginner">Beginner</option>
+                                        <option value="intermediate" selected>Intermediate</option>
+                                        <option value="advanced">Advanced</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="theme">Theme</label>
+                                    <select id="theme">
+                                        <option value="light" selected>Light</option>
+                                        <option value="dark">Dark</option>
+                                        <option value="auto">Auto</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Achievements Tab -->
+                <div class="tab-content" id="achievements-tab">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3>Achievements & Badges</h3>
+                            <p>Track your learning milestones</p>
+                        </div>
+                        <div class="card-content">
+                            <div class="achievement-grid" id="achievementGrid">
+                                <!-- Achievements will be loaded here -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Activity Tab -->
+                <div class="tab-content" id="activity-tab">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3>Recent Activity</h3>
+                            <p>Your learning activity timeline</p>
+                        </div>
+                        <div class="card-content">
+                            <div class="activity-list" id="activityList">
+                                <!-- Activity items will be loaded here -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="script.js"></script>
+    <script>
+        let isEditing = false;
+
+        // Sample data
+        const achievements = [
+            { id: 1, title: "First Steps", description: "Complete your first course", earned: true, date: "2024-01-15" },
+            { id: 2, title: "Speed Learner", description: "Complete 5 lessons in one day", earned: true, date: "2024-02-03" },
+            { id: 3, title: "Perfect Score", description: "Get 100% on 3 consecutive quizzes", earned: true, date: "2024-02-15" },
+            { id: 4, title: "Consistency King", description: "Maintain a 7-day streak", earned: true, date: "2024-02-20" },
+            { id: 5, title: "Knowledge Seeker", description: "Complete 10 courses", earned: false, progress: 80 },
+            { id: 6, title: "Master Learner", description: "Reach level 15", earned: false, progress: 60 }
+        ];
+
+        const recentActivity = [
+            { id: 1, type: "course", title: "Advanced Mathematics", date: "2024-03-15", score: 95 },
+            { id: 2, type: "quiz", title: "Calculus Quiz #3", date: "2024-03-14", score: 88 },
+            { id: 3, type: "achievement", title: "Perfect Score Achievement", date: "2024-03-13" },
+            { id: 4, type: "course", title: "Computer Science Fundamentals", date: "2024-03-12" },
+            { id: 5, type: "streak", title: "15-day learning streak!", date: "2024-03-11" }
+        ];
+
+        // Initialize page
+        document.addEventListener('DOMContentLoaded', function() {
+            loadUserData();
+            loadAchievements();
+            loadActivity();
+        });
+
+        function loadUserData() {
+            const user = getFromStorage('edumorph_user');
+            if (user) {
+                document.getElementById('userName').textContent = user.name || 'John Doe';
+                document.getElementById('userAvatar').textContent = (user.name || 'U').charAt(0).toUpperCase();
+                document.getElementById('firstName').value = user.name?.split(' ')[0] || '';
+                document.getElementById('lastName').value = user.name?.split(' ')[1] || '';
+                document.getElementById('email').value = user.email || '';
+            }
+        }
+
+        function showTab(tabName) {
+            // Hide all tabs
+            document.querySelectorAll('.tab-content').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            document.querySelectorAll('.tab-button').forEach(btn => {
+                btn.classList.remove('active');
+            });
+
+            // Show selected tab
+            document.getElementById(tabName + '-tab').classList.add('active');
+            event.target.classList.add('active');
+        }
+
+        function toggleEdit() {
+            isEditing = !isEditing;
+            const formElements = document.querySelectorAll('#profileForm input, #profileForm textarea');
+            const editBtn = document.getElementById('editBtn');
+            const saveButtons = document.getElementById('saveButtons');
+
+            if (isEditing) {
+                formElements.forEach(el => el.disabled = false);
+                editBtn.innerHTML = '<i class="fas fa-times"></i> Cancel';
+                saveButtons.style.display = 'flex';
+            } else {
+                formElements.forEach(el => el.disabled = true);
+                editBtn.innerHTML = '<i class="fas fa-edit"></i> Edit Profile';
+                saveButtons.style.display = 'none';
+            }
+        }
+
+        function saveProfile() {
+            // Get form data
+            const profileData = {
+                firstName: document.getElementById('firstName').value,
+                lastName: document.getElementById('lastName').value,
+                email: document.getElementById('email').value,
+                phone: document.getElementById('phone').value,
+                occupation: document.getElementById('occupation').value,
+                location: document.getElementById('location').value,
+                bio: document.getElementById('bio').value,
+                learningGoals: document.getElementById('learningGoals').value
+            };
+
+            // Save to localStorage (in real app, would save to database)
+            const user = getFromStorage('edumorph_user') || {};
+            user.name = `${profileData.firstName} ${profileData.lastName}`;
+            user.email = profileData.email;
+            saveToStorage('edumorph_user', user);
+
+            // Update UI
+            document.getElementById('userName').textContent = user.name;
+            document.getElementById('userAvatar').textContent = user.name.charAt(0).toUpperCase();
+
+            // Exit edit mode
+            toggleEdit();
+            
+            showAlert('Profile updated successfully!', 'success');
+        }
+
+        function cancelEdit() {
+            loadUserData();
+            toggleEdit();
+        }
+
+        function toggleSwitch(switchEl) {
+            switchEl.classList.toggle('active');
+        }
+
+        function loadAchievements() {
+            const grid = document.getElementById('achievementGrid');
+            grid.innerHTML = '';
+
+            achievements.forEach(achievement => {
+                const card = document.createElement('div');
+                card.className = `achievement-card ${achievement.earned ? 'earned' : 'locked'}`;
+                
+                card.innerHTML = `
+                    <div class="achievement-icon ${achievement.earned ? 'earned' : 'locked'}">
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <h4 style="margin-bottom: 0.5rem; color: ${achievement.earned ? '#92400e' : '#6b7280'};">
+                        ${achievement.title}
+                    </h4>
+                    <p style="font-size: 0.875rem; color: ${achievement.earned ? '#b45309' : '#9ca3af'}; margin-bottom: 0.5rem;">
+                        ${achievement.description}
+                    </p>
+                    ${achievement.earned 
+                        ? `<p style="font-size: 0.75rem; color: #d97706;">Earned on ${achievement.date}</p>`
+                        : `<div>
+                            <div class="progress-bar" style="height: 0.25rem; margin-bottom: 0.25rem;">
+                                <div class="progress-fill" style="width: ${achievement.progress || 0}%;"></div>
+                            </div>
+                            <p style="font-size: 0.75rem; color: #9ca3af;">${achievement.progress || 0}% complete</p>
+                           </div>`
+                    }
+                `;
+                
+                grid.appendChild(card);
+            });
+        }
+
+        function loadActivity() {
+            const list = document.getElementById('activityList');
+            list.innerHTML = '';
+
+            recentActivity.forEach(activity => {
+                const item = document.createElement('div');
+                item.className = 'activity-item';
+                
+                item.innerHTML = `
+                    <div class="activity-icon ${activity.type}">
+                        <i class="fas fa-${getActivityIcon(activity.type)}"></i>
+                    </div>
+                    <div style="flex: 1;">
+                        <h4 style="margin-bottom: 0.25rem;">${activity.title}</h4>
+                        <p style="font-size: 0.875rem; color: #6b7280;">${activity.date}</p>
+                    </div>
+                    ${activity.score ? `<span class="badge badge-success">${activity.score}%</span>` : ''}
+                `;
+                
+                list.appendChild(item);
+            });
+        }
+
+        function getActivityIcon(type) {
+            switch(type) {
+                case 'course': return 'book-open';
+                case 'quiz': return 'question-circle';
+                case 'achievement': return 'trophy';
+                case 'streak': return 'fire';
+                default: return 'circle';
+            }
+        }
+
+        function logout() {
+            localStorage.removeItem('edumorph_user');
+            localStorage.removeItem('edumorph_session');
+            window.location.href = 'index.html';
+        }
+
+        function getFromStorage(key) {
+            try {
+                const data = localStorage.getItem(key);
+                return data ? JSON.parse(data) : null;
+            } catch (error) {
+                console.error('Error reading from storage:', error);
+                return null;
+            }
+        }
+
+        function saveToStorage(key, data) {
+            try {
+                localStorage.setItem(key, JSON.stringify(data));
+            } catch (error) {
+                console.error('Error saving to storage:', error);
+            }
+        }
+
+        function showAlert(message, type) {
+            // Simple alert for now - could be enhanced with a toast notification
+            alert(message);
+        }
+    </script>
+</body>
+</html>
